@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.9'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'org.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf' // THYMELEAF: java template engine for web
+//    implementation 'com.h2database:h2' // h2: in-memory bir veritabanıdır. Ek bir ayar yapmadan veritabanı olarak kullanabilirsiniz. Uygulama ayağa kalkınca çalışır ve kapandığında kapanır ve tüm datalar silinir. Genellikle test işlemlerinde kullanılır. Bunu kullanmak için application.yml'de 'spring' satırı ve altında kalan satırları yoruma aldık; h2'yle işimiz bittiğinde yorum satırlarını tekrar açarız.
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final' // MAPSTRUCT: Dto-entity entity-Dto dönüşümlerini otomatize eden anotasyon
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final' // bunların sırası önemli, üstlere koymuyoruz bu satırı.
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.14' //  open api (eski adı 'swagger api') -> uygulamamızdaki endpoint'leri otomatize edip sisteme yükler. Browser'da swagger'ı açarak görüntülüyoruz: localhost:[portnumarası]/swagger-ui/index.html
+    implementation 'com.auth0:java-jwt:4.4.0'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
